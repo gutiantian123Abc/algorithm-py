@@ -19,7 +19,7 @@ class Solution:
         # write your code here
         left, right = 0, len(nums) - 1
         while left + 1 < right :
-            mid = (left + right) / 2
+            mid = left + (right - left) / 2
             if target == nums[mid] :
                 right = mid
             elif target < nums[mid] :
