@@ -43,20 +43,21 @@ class Solution:
     def levelOrder(self, root):
         # write your code here
         results = []
-        if not root:
+        if not root :
             return results
-        q = [root]
-        while q:
+        queue = collections.deque()
+        queue.append(root)
+        while queue:
+            size = len(queue)
             new_q = []
-            results.append([n.val for n in q])
-            size = len(q)
             for i in range(0, size):
-                node = q[i]
+                node = queue.popleft()
+                new_q.append(node.val)
                 if node.left:
-                    new_q.append(node.left)
+                   queue.append(node.left) 
                 if node.right:
-                    new_q.append(node.right)
-            q = new_q
+                    queue.append(node.right)
+            results.append(new_q)       
             
         return results
         
