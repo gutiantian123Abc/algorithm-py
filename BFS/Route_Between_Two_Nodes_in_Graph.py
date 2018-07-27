@@ -24,7 +24,6 @@ class DirectedGraphNode:
         self.neighbors = []
 """
 
-
 class Solution:
     """
     @param: graph: A list of Directed graph node
@@ -42,6 +41,8 @@ class Solution:
         visited = set()
         queue = collections.deque()
         queue.append(s)
+        visited.add(s)
+        #注意， BFS 若有visited, 一定要在append 的时候update visited , 千万不要在pop出来的时候update visited
         
         while queue:
             size = len(queue)
@@ -49,10 +50,10 @@ class Solution:
                 currnode = queue.popleft()
                 if currnode == t:
                     return True
-                visited.add(currnode)
                 
                 for node in currnode.neighbors:
                     if node not in visited:
                         queue.append(node)
+                        visited.add(node)#注意， BFS 若有visited, 一定要在append 的时候update visited , 千万不要在pop出来的时候update visited
                         
         return False
