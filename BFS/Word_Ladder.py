@@ -15,6 +15,18 @@ return its length 5.
 """
 
 class Solution:
+    def nextWords(self, word, visited, dict):
+        nextwords = set()
+        for i in range(0, len(word)):
+            part1 = word[:i]
+            part2 = word[i + 1:]
+            for c in 'abcdefghijklmnopqrstuvwxyz':
+                if word[i] != c:
+                    nextWord = part1 + c + part2
+                    if nextWord not in visited and nextWord in dict:
+                        nextwords.add(nextWord)
+                        
+        return nextwords
     """
     @param: start: a string
     @param: end: a string
@@ -22,21 +34,6 @@ class Solution:
     @return: An integer
     """
     def ladderLength(self, start, end, dict):
-        
-        def nextWords(word, visited, dict):
-            nextwords = set()
-            for i in range(0, len(word)):
-                part1 = word[:i]
-                part2 = word[i + 1:]
-                for c in 'abcdefghijklmnopqrstuvwxyz':
-                    if word[i] != c:
-                        nextWord = part1 + c + part2
-                        if nextWord not in visited and nextWord in dict:
-                            nextwords.add(nextWord)
-                        
-            return nextwords
-            
-            
         # write your code here
         queue = collections.deque()
         queue.append(start)
@@ -52,7 +49,7 @@ class Solution:
                     return length
                 else:
                     nextwords = set()
-                    nextwords = nextWords(word, visited, dict)
+                    nextwords = self.nextWords(word, visited, dict)
                     for nextword in nextwords:
                         queue.append(nextword)
                         visited.add(nextword)
